@@ -962,13 +962,7 @@ c iron
       ELSE
        MM_FeT = 1 _d 0
       ENDIF
-          
-      phytoSA =
-     &   (36.0 _d 0*3.141592653589793 _d 0)
-     &   **(1.0 _d 0/3.0 _d 0)
-     &   * biovol(j)**(2.0 _d 0/3.0 _d 0)
 
-      VFeSA = ksaFeT*phytoSA*FeT/qcarbon(j)
 #ifdef DARWIN_ALLOW_FEQUOTA
         regQfe = MAX(0 _d 0, MIN(1 _d 0, (Qfemax(j)-Qfe(j))/
      &                                   (Qfemax(j)-Qfemin(j)) ))
@@ -981,6 +975,13 @@ c       normalized Droop limitation
 C iron limit is applied in Geider
 # ifdef DARWIN_ALLOW_CSTORE
         IF (R_FeC(j) .GT. 0 _d 0) THEN
+         phytoSA =
+     &   (36.0 _d 0*3.141592653589793 _d 0)
+     &   **(1.0 _d 0/3.0 _d 0)
+     &   * biovol(j)**(2.0 _d 0/3.0 _d 0)
+
+          VFeSA = ksaFeT*phytoSA*FeT/qcarbon(j)
+          
           Dmd_FeC = VFeSA*uptakeTempFunc*X(j)/R_FeC(j)
           Dmd_min = MIN(Dmd_min, Dmd_FeC)
         ELSE
